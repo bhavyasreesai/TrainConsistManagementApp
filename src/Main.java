@@ -1,18 +1,15 @@
 package TrainConsistManagement;
 import java.util.*;
+import java.util.stream.Collectors;
 
-// Goods Bogie class
-class GoodsBogie {
+// Bogie class
+class Bogie {
     String type;
-    String cargo;
+    int capacity;
 
-    GoodsBogie(String type, String cargo) {
+    Bogie(String type, int capacity) {
         this.type = type;
-        this.cargo = cargo;
-    }
-
-    public String toString() {
-        return "Type=" + type + ", Cargo=" + cargo;
+        this.capacity = capacity;
     }
 }
 
@@ -20,29 +17,40 @@ class GoodsBogie {
  class TrainConsistManagementApp {
     public static void main(String[] args) {
 
-        List<GoodsBogie> list = new ArrayList<>();
+        List<Bogie> list = new ArrayList<>();
 
-        // Add goods bogies
-        list.add(new GoodsBogie("Cylindrical", "Petroleum"));
-        list.add(new GoodsBogie("Open", "Coal"));
-        list.add(new GoodsBogie("Box", "Grain"));
-
-        // 🔹 DISPLAY ALL BOGIES
-        System.out.println("Goods Bogies:");
-        list.forEach(System.out::println);
-
-        // 🔹 SAFETY CHECK using allMatch()
-        boolean isSafe = list.stream()
-                .allMatch(b ->
-                        !b.type.equals("Cylindrical") ||
-                                b.cargo.equals("Petroleum")
-                );
-
-        // 🔹 RESULT
-        if (isSafe) {
-            System.out.println("\nTrain is SAFE ");
-        } else {
-            System.out.println("\nTrain is UNSAFE ");
+        // 🔹 Create large dataset
+        for (int i = 0; i < 100000; i++) {
+            list.add(new Bogie("Sleeper", 72));
+            list.add(new Bogie("AC Chair", 56));
+            list.add(new Bogie("First Class", 24));
+            list.add(new Bogie("General", 90));
         }
+
+        // 🔹 LOOP-BASED FILTERING
+        long startLoop = System.nanoTime();
+
+        for (Bogie b : list) {
+            if (b.capacity > 60) {
+                // just checking condition (no need to store)
+            }
+        }
+
+        long endLoop = System.nanoTime();
+        long loopTime = endLoop - startLoop;
+
+        // 🔹 STREAM-BASED FILTERING
+        long startStream = System.nanoTime();
+
+        list.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
+
+        long endStream = System.nanoTime();
+        long streamTime = endStream - startStream;
+
+        // 🔹 OUTPUT (ONLY TIME)
+        System.out.println("Loop Execution Time (ns): " + loopTime);
+        System.out.println("Stream Execution Time (ns): " + streamTime);
     }
 }
