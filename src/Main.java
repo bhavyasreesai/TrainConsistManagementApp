@@ -1,24 +1,25 @@
 package TrainConsistManagement;
 
-import java.util.LinkedHashSet;
+import java.util.HashMap;
+import java.util.Map;
 
- class TrainConsistUC5 {
+ class TrainConsistUC6 {
     public static void main(String[] args) {
 
-        // Step 1: Create LinkedHashSet
-        LinkedHashSet<String> train = new LinkedHashSet<>();
+        // Create HashMap
+        HashMap<String, Integer> trainMap = new HashMap<>();
 
-        // Step 2: Add bogies
-        train.add("Engine");
-        train.add("Sleeper");
-        train.add("Cargo");
-        train.add("Guard");
+        // Insert your values
+        trainMap.put("First Class", 24);
+        trainMap.put("Cargo", 120);
+        trainMap.put("Sleeper", 72);
+        trainMap.put("AC Chair", 56);
 
-        // Step 3: Try adding duplicate
-        train.add("Sleeper"); // duplicate (will be ignored)
+        // Display output
+        System.out.println("Bogie Capacity Details:");
 
-        // Step 4: Display final formation
-        System.out.println("Final Train Formation:");
-        System.out.println(train);
+        for (Map.Entry<String, Integer> entry : trainMap.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
     }
 }
