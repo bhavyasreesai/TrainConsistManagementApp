@@ -1,26 +1,33 @@
 package TrainConsistManagement;
 
 import java.util.ArrayList;
-import java.util.List;
 
- class TrainConsistManagementApp {
-
+ class TrainConsist {
     public static void main(String[] args) {
+        ArrayList<String> passengerBogies = new ArrayList<>();
 
-        // Welcome message
-        System.out.println("=== Train Consist Management App ===");
+        // Adding bogies
+        passengerBogies.add("Sleeper");
+        passengerBogies.add("AC Chair");
+        passengerBogies.add("First Class");
+        System.out.println("After Adding Bogies:");
+        System.out.println("Passenger Bogies : " + passengerBogies);
 
-        // Initialize train consist
-        List<String> trainConsist = new ArrayList<>();
+        // Removing a bogie
+        passengerBogies.remove("AC Chair");
+        System.out.println("\nAfter Removing 'AC Chair':");
+        System.out.println("Passenger Bogies : " + passengerBogies);
 
-        // Display initialization details
-        System.out.println("Train consist initialized....");
-        System.out.println("Initial bogie count: " + trainConsist.size());
+        // Checking if 'Sleeper' exists
+        boolean containsSleeper = passengerBogies.contains("Sleeper");
+        System.out.println("\nChecking if 'Sleeper' exists:");
+        System.out.println("Contains Sleeper? : " + containsSleeper);
 
-        // Display current train consist
-        System.out.println("Current train consists: " + trainConsist);
+        // Final train consist
+        System.out.println("\nFinal Train Passenger Consist:");
+        System.out.println(passengerBogies);
 
-        // System ready message
-        System.out.println("System ready for operations....");
+        System.out.println("\nUC2 operations completed successfully...");
     }
 }
+
