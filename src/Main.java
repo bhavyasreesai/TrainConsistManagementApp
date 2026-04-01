@@ -1,7 +1,6 @@
 package TrainConsistManagement;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 // Bogie class
 class Bogie {
@@ -28,26 +27,18 @@ class Bogie {
         list.add(new Bogie("Sleeper", 72));
         list.add(new Bogie("AC Chair", 56));
         list.add(new Bogie("First Class", 24));
-        list.add(new Bogie("Sleeper", 72));
-        list.add(new Bogie("AC Chair", 56));
+        list.add(new Bogie("General", 70));
 
-        // 🔹 ALL BOGIES
+        // 🔹 DISPLAY ALL BOGIES
         System.out.println("All Bogies:");
         list.forEach(System.out::println);
 
-        // 🔹 GROUPING
-        Map<String, List<Bogie>> grouped =
-                list.stream().collect(Collectors.groupingBy(b -> b.type));
+        // 🔹 TOTAL SEATS USING STREAM
+        int totalSeats = list.stream()
+                .map(b -> b.capacity)          // extract capacity
+                .reduce(0, Integer::sum);      // sum all values
 
-        // 🔹 GROUPED OUTPUT (formatted)
-        System.out.println("\nGrouped Bogies:");
-        for (Map.Entry<String, List<Bogie>> entry : grouped.entrySet()) {
-
-            System.out.println("Bogie Type: " + entry.getKey());
-
-            for (Bogie b : entry.getValue()) {
-                System.out.println("   Capacity: " + b.capacity);
-            }
-        }
+        // 🔹 DISPLAY TOTAL
+        System.out.println("\nTotal Seating Capacity: " + totalSeats);
     }
 }
