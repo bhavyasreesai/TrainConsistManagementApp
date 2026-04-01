@@ -1,33 +1,30 @@
 package TrainConsistManagement;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
- class TrainConsist {
+ class UniqueBogieTracker {
     public static void main(String[] args) {
-        ArrayList<String> passengerBogies = new ArrayList<>();
+        System.out.println("UC3 - Track Unique Bogie IDs (Set – HashSet)");
+        System.out.println("============================================");
 
-        // Adding bogies
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
-        System.out.println("After Adding Bogies:");
-        System.out.println("Passenger Bogies : " + passengerBogies);
+        Set<String> bogieIDs = new HashSet<>();
 
-        // Removing a bogie
-        passengerBogies.remove("AC Chair");
-        System.out.println("\nAfter Removing 'AC Chair':");
-        System.out.println("Passenger Bogies : " + passengerBogies);
+        // Adding bogie IDs
+        System.out.println("Adding Bogie IDs: BG101, BG102, BG103, BG101");
+        bogieIDs.add("BG101");
+        bogieIDs.add("BG102");
+        bogieIDs.add("BG103");
+        bogieIDs.add("BG101"); // Duplicate, will be ignored
 
-        // Checking if 'Sleeper' exists
-        boolean containsSleeper = passengerBogies.contains("Sleeper");
-        System.out.println("\nChecking if 'Sleeper' exists:");
-        System.out.println("Contains Sleeper? : " + containsSleeper);
+        // Display unique bogie IDs
+        System.out.println("\nUnique Bogie IDs in Train:");
+        System.out.println(bogieIDs);
 
-        // Final train consist
-        System.out.println("\nFinal Train Passenger Consist:");
-        System.out.println(passengerBogies);
+        // Display total count
+        System.out.println("\nTotal Unique Bogies: " + bogieIDs.size());
 
-        System.out.println("\nUC2 operations completed successfully...");
+        System.out.println("\nUC3 operations completed successfully...");
     }
 }
 
