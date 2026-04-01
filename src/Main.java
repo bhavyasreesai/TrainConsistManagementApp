@@ -5,16 +5,16 @@ import java.util.stream.Collectors;
 
 // Bogie class
 class Bogie {
-    String name;
+    String type;
     int capacity;
 
-    Bogie(String name, int capacity) {
-        this.name = name;
+    Bogie(String type, int capacity) {
+        this.type = type;
         this.capacity = capacity;
     }
 
     public String toString() {
-        return name + " -> " + capacity;
+        return "Type=" + type + ", Capacity=" + capacity;
     }
 }
 
@@ -28,19 +28,26 @@ class Bogie {
         list.add(new Bogie("Sleeper", 72));
         list.add(new Bogie("AC Chair", 56));
         list.add(new Bogie("First Class", 24));
-        list.add(new Bogie("General", 90));
+        list.add(new Bogie("Sleeper", 72));
+        list.add(new Bogie("AC Chair", 56));
 
-        // 🔹 ORIGINAL LIST
-        System.out.println("Original Bogie List:");
+        // 🔹 ALL BOGIES
+        System.out.println("All Bogies:");
         list.forEach(System.out::println);
 
-        // 🔹 FILTER using Stream (capacity > 60)
-        List<Bogie> filteredList = list.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
+        // 🔹 GROUPING
+        Map<String, List<Bogie>> grouped =
+                list.stream().collect(Collectors.groupingBy(b -> b.type));
 
-        // 🔹 FILTERED LIST
-        System.out.println("\nFiltered Bogies (Capacity > 60):");
-        filteredList.forEach(System.out::println);
+        // 🔹 GROUPED OUTPUT (formatted)
+        System.out.println("\nGrouped Bogies:");
+        for (Map.Entry<String, List<Bogie>> entry : grouped.entrySet()) {
+
+            System.out.println("Bogie Type: " + entry.getKey());
+
+            for (Bogie b : entry.getValue()) {
+                System.out.println("   Capacity: " + b.capacity);
+            }
+        }
     }
 }
