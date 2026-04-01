@@ -1,6 +1,7 @@
 package TrainConsistManagement;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 // Bogie class
 class Bogie {
@@ -17,8 +18,8 @@ class Bogie {
     }
 }
 
-// Main class (as require
-class TrainConsistManagementApp {
+// Main class
+ class TrainConsistManagementApp {
     public static void main(String[] args) {
 
         List<Bogie> list = new ArrayList<>();
@@ -29,19 +30,17 @@ class TrainConsistManagementApp {
         list.add(new Bogie("First Class", 24));
         list.add(new Bogie("General", 90));
 
-        // BEFORE SORTING
-        System.out.println("Before Sorting:");
-        for (Bogie b : list) {
-            System.out.println(b);
-        }
+        // 🔹 ORIGINAL LIST
+        System.out.println("Original Bogie List:");
+        list.forEach(System.out::println);
 
-        // SORTING (Ascending)
-        list.sort(Comparator.comparingInt(b -> b.capacity));
+        // 🔹 FILTER using Stream (capacity > 60)
+        List<Bogie> filteredList = list.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
 
-        // AFTER SORTING
-        System.out.println("\nAfter Sorting (by Capacity):");
-        for (Bogie b : list) {
-            System.out.println(b);
-        }
+        // 🔹 FILTERED LIST
+        System.out.println("\nFiltered Bogies (Capacity > 60):");
+        filteredList.forEach(System.out::println);
     }
 }
