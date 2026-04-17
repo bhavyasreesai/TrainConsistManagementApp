@@ -1,24 +1,37 @@
 package TrainConsistManagement;
 import java.util.Arrays;
  class TrainConsistManagementApp {
-    public static void main(String[] args) {
-        String[] bogieNames = {"Luxury", "General", "Sleeper", "AC Chair", "First Class"};
+     public static void main(String[] args) {
+         String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        System.out.println("Before Sorting:");
-        displayBogieNames(bogieNames);
+         // Bogie ID to search
+         String searchId = "BG309";
 
-        // Sort bogie names alphabetically using Arrays.sort()
-        Arrays.sort(bogieNames);
-
-        System.out.println("\nAfter Sorting:");
-        displayBogieNames(bogieNames);
-    }
-
-     // Display bogie names
-     public static void displayBogieNames(String[] bogies) {
-         for (String bogie : bogies) {
-             System.out.print(bogie + " , ");
+         // Display all bogies
+         System.out.println("Available Bogie IDs:");
+         for (String id : bogieIds) {
+             System.out.print(id + " ");
          }
          System.out.println();
+
+         // ---- LINEAR SEARCH LOGIC ----
+         boolean found = false;
+         int position = -1;
+
+         // Traverse each element sequentially
+         for (int i = 0; i < bogieIds.length; i++) {
+             if (bogieIds[i].equals(searchId)) {
+                 found = true;
+                 position = i;
+                 break;
+             }
+         }
+
+         // Display result
+         if (found) {
+             System.out.println(" Bogie ID " + searchId + " found at position " + position);
+         } else {
+             System.out.println(" Bogie ID " + searchId + " not found in the consist.");
+         }
      }
  }
