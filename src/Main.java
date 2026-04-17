@@ -7,31 +7,25 @@ import java.util.Arrays;
          // Bogie ID to search
          String searchId = "BG309";
 
-         // Display all bogies
-         System.out.println("Available Bogie IDs:");
+         System.out.println("========================================");
+         System.out.println("UC19 - Binary Search for Bogie ID");
+         System.out.println("========================================");
+
+         System.out.println("\nSorted Bogie IDs:");
          for (String id : bogieIds) {
-             System.out.print(id + " ");
+             System.out.println(id);
          }
-         System.out.println();
 
-         // ---- LINEAR SEARCH LOGIC ----
-         boolean found = false;
-         int position = -1;
-
-         // Traverse each element sequentially
-         for (int i = 0; i < bogieIds.length; i++) {
-             if (bogieIds[i].equals(searchId)) {
-                 found = true;
-                 position = i;
-                 break;
-             }
-         }
+         // Perform binary search
+         int position = Arrays.binarySearch(bogieIds, searchId);
 
          // Display result
-         if (found) {
-             System.out.println(" Bogie ID " + searchId + " found at position " + position);
+         if (position >= 0) {
+             System.out.println("\nBogie " + searchId + " found using Binary Search at position " + position + ".");
          } else {
-             System.out.println(" Bogie ID " + searchId + " not found in the consist.");
+             System.out.println("\nBogie " + searchId + " not found in the consist.");
          }
+
+         System.out.println("\nUC19 search completed...");
      }
  }
