@@ -1,37 +1,59 @@
 package TrainConsistManagement;
-import java.util.Arrays;
- class TrainConsistManagementApp {
-     public static void main(String[] args) {
-         try {
-             // Example bogie IDs (sorted)
-             String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-             String searchId = "BG101";
 
-             System.out.println("========================================");
-             System.out.println("UC20 - Exception Handling During Search Operations");
-             System.out.println("========================================");
+class TrainConsistManagementApp {
 
-             // Validate before searching
-             if (bogieIds == null || bogieIds.length == 0) {
-                 throw new IllegalStateException("No bogies available for searching!");
-             }
+    // --- CUSTOM RUNTIME EXCEPTION ---
+    static class CargoSafetyException extends RuntimeException {
+        public CargoSafetyException(String message) {
+            super(message);
+        }
+    }
 
-             // Perform binary search
-             int position = Arrays.binarySearch(bogieIds, searchId);
+    // --- GOODS BOGIE CLASS ---
+    static class GoodsBogie {
+        private String shape;
+        private String cargo;
 
-             // Handle search result
-             if (position >= 0) {
-                 System.out.println("\n Bogie " + searchId + " found at position " + position);
-             } else {
-                 throw new Exception(" Bogie " + searchId + " not found in the consist.");
-             }
+        GoodsBogie(String shape) {
+            this.shape = shape;
+        }
 
-         } catch (IllegalStateException e) {
-             System.out.println("\n Search aborted: " + e.getMessage());
-         } catch (Exception e) {
-             System.out.println("\n Exception: " + e.getMessage());
-         } finally {
-             System.out.println("\nUC20 search operation completed safely.");
-         }
-     }
- }
+        void assignCargo(String cargo) {
+            try {
+                // Rule: Rectangular bogie cannot carry petroleum
+                if (shape.equalsIgnoreCase("Rectangular") &&
+                        cargo.equalsIgnoreCase("Petroleum")) {
+
+                    throw new CargoSafetyException("Unsafe cargo assignment!");
+                }
+
+                // Safe assignment
+                this.cargo = cargo;
+                System.out.println("Cargo assigned successfully -> " + cargo);
+
+            } catch (CargoSafetyException e) {
+                // Error message as per expected output
+                System.out.println("Error: " + e.getMessage());
+
+            } finally {
+                // Exact expected finally message
+                System.out.println("Cargo validation completed for " + shape + " bogie");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+
+
+
+        // Safe case
+        GoodsBogie bogie1 = new GoodsBogie("Cylindrical");
+        bogie1.assignCargo("Petroleum");
+
+        // Unsafe case
+        GoodsBogie bogie2 = new GoodsBogie("Rectangular");
+        bogie2.assignCargo("Petroleum");
+
+        System.out.println("\nUC15 runtime handling completed...");
+    }
+}
